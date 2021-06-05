@@ -1,10 +1,8 @@
-.main {
-  min-height: 960px;
-}
 .container {
   width: 40%;
   margin: auto;
-  min-height: 960px;
+  min-height: 600px;
+
   border: 1px solid grey;
 }
 .px-30 {
@@ -15,6 +13,9 @@
 }
 .pb-10 {
   padding-bottom: 10px;
+}
+.pb-30 {
+  padding-bottom: 30px;
 }
 .button-primary {
   background-color: blue;

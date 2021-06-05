@@ -1,9 +1,9 @@
 import React from "react";
 import "./PlanetForm.css";
 
-function Filter({ heading, filterList, handleCheck }) {
+function Filter({ heading, filterList, handleCheck, noTopPadding }) {
   return (
-    <div className="pt-30 ">
+    <div className={`${!noTopPadding && "pt-30"} `}>
       <h1 className="heading pb-10">{heading}</h1>
       {filterList?.map((item, index) => (
         <div className="checkbox" key={index}>

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//import { fetchPlanets } from "./planetSlice";
+import { getPlanets, increment } from "./planetSlice";
 import "./PlanetForm.css";
 import axios from "axios";
 import Filter from "./Filter";
 
 function PlanetForm() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPlanets());
+    dispatch(increment());
+  }, []);
+
   const baseUrl = "http://localhost:3000";
   //const [list, updateList] = useState([]);
   const [shapesList, updateShapes] = useState([]);
@@ -17,14 +23,13 @@ function PlanetForm() {
   const [text, updateText] = useState("");
 
   useEffect(() => {
-    // axios.get(`${baseUrl}/planets`).then((res) => updateList(res.data));
     axios.get(`${baseUrl}/shapes`).then((res) => updateShapes(res.data));
-    axios.get(`${baseUrl}/sizes`).then((res) => updateColors(res.data));
-    axios.get(`${baseUrl}/colors`).then((res) => updateSizes(res.data));
+    axios.get(`${baseUrl}/colors`).then((res) => updateColors(res.data));
+    axios.get(`${baseUrl}/sizes`).then((res) => updateSizes(res.data));
   }, []);
 
   const state = useSelector((state) => state);
-  //console.log(state);
+  console.log(state);
 
   const handleCheck = (event, heading, id) => {
     const { checked } = event.target;
@@ -69,21 +74,29 @@ function PlanetForm() {
     updateText(event.target.value);
   };
 
+  const colorString =
+    selectedColor.join(",") !== "" ? `&color=${selectedColor.join(",")}` : "";
+
+  const sizeString = selectedSize.join(",")
+    ? `&size=${selectedSize.join(",")}`
+    : "";
+
+  const shapeString = selectedShape.join(",")
+    ? `&shape=${selectedShape.join(",")}`
+    : "";
+  localStorage.setItem("color", colorString);
   const handleSubmit = (event) => {
     event.preventDefault();
-    const colorString = selectedColor.join(",");
-    const sizeString = selectedSize.join(",");
-    const shapeString = selectedShape.join(",");
     axios
       .get(
-        `${baseUrl}/planets?q=${text}&color=${colorString}&shape=${shapeString}&size=${sizeString}`
+        `${baseUrl}/planets?q=${text}${colorString}${shapeString}${sizeString}`
       )
-      .then((res) => console.log(res));
+      .then((res) => console.log(res.data));
   };
 
   return (
-    <div className="container px-30">
-      <div>
+    <div className="container px-30 ">
+      <div className="pb-30">
         <form onSubmit={handleSubmit} className="input-container">
           <input className="width-90" onChange={handleChange} />
           <button
@@ -98,6 +111,7 @@ function PlanetForm() {
       <div className="flex-row">
         <div className="filter">
           <Filter
+            noTopPadding
             heading="Colors"
             filterList={colorsList}
             handleCheck={handleCheck}
