@@ -24,11 +24,10 @@ function PlanetForm() {
   }, []);
 
   const state = useSelector((state) => state);
-  console.log(state);
+  //console.log(state);
 
   const handleCheck = (event, heading, id) => {
     const { checked } = event.target;
-    console.log(event.target.checked, heading, id);
     switch (heading) {
       case "Colors":
         const arrColor = [...selectedColor];
@@ -67,19 +66,26 @@ function PlanetForm() {
   };
 
   const handleChange = (event) => {
-    updateText(event.value.target);
+    updateText(event.target.value);
   };
 
   const handleSubmit = (event) => {
-    event.preventdefault();
-    axios.get(`${baseUrl}/planets?`);
+    event.preventDefault();
+    const colorString = selectedColor.join(",");
+    const sizeString = selectedSize.join(",");
+    const shapeString = selectedShape.join(",");
+    axios
+      .get(
+        `${baseUrl}/planets?q=${text}&color=${colorString}&shape=${shapeString}&size=${sizeString}`
+      )
+      .then((res) => console.log(res));
   };
 
   return (
     <div className="container px-30">
       <div>
         <form onSubmit={handleSubmit} className="input-container">
-          <input className="width-90" />
+          <input className="width-90" onChange={handleChange} />
           <button
             type="submit"
             className="width-10 button-primary"
