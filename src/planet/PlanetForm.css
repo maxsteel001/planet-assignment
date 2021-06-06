@@ -4,6 +4,7 @@
   min-height: 600px;
   padding: 30px 30px 0px 30px;
   border: 1px solid grey;
+  margin-top: 50px;
 }
 @media screen and (max-width: 800px) {
   .container {
@@ -62,12 +63,12 @@ p {
 }
 .list {
   border-left: 1px solid grey;
-  flex-grow: 5;
+  width: 80%;
   padding-left: 30px;
   text-align: left;
 }
 .filter {
-  flex-grow: 1;
+  width: 20%;
 }
 .checkbox {
   display: flex;
