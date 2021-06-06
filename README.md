@@ -10,5 +10,6 @@ Firstly we go on firebase console and create a new project.
 Then we reigster the app with firebase hosting available.
 install firebase CLI
 setup config data , then on terminal firebase init and set public directory as build
-then npm run build and finally firebase deploy
+then npm run build and finally firebase deploy.
+Text and list data also persisted
 url : https://planet-assignment-dad2c.web.app;
