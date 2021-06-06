@@ -13,7 +13,7 @@ function PlanetContainer() {
   const [selectedSize, updateSelectedSize] = useState([]);
   const [selectedColor, updateSelectedColor] = useState([]);
 
-  const [text, updateText] = useState("");
+  const [text, updateText] = useState(localStorage.getItem("textLocal") || "");
   const dispatch = useDispatch();
   const list = useSelector((state) => state);
   const colorString =
@@ -24,12 +24,21 @@ function PlanetContainer() {
   const shapeString = selectedShape.join(",")
     ? `&shape=${selectedShape.join(",")}`
     : "";
-
+  console.log(localStorage.getItem("texLocal"), "divi");
   useEffect(() => {
     axios.get(`${baseUrl}/shapes`).then((res) => updateShapes(res.data));
     axios.get(`${baseUrl}/colors`).then((res) => updateColors(res.data));
     axios.get(`${baseUrl}/sizes`).then((res) => updateSizes(res.data));
   }, []);
+  useEffect(() => {
+    if (selectedSize.length || selectedShape.length || selectedColor.length) {
+      dispatch(getPlanets({ text, colorString, sizeString, shapeString }));
+    }
+  }, [selectedColor, selectedShape, selectedSize]);
+
+  useEffect(() => {
+    localStorage.setItem("textLocal", text);
+  }, [text]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,20 +92,25 @@ function PlanetContainer() {
   const handleChange = (event) => {
     updateText(event.target.value);
   };
+
   const listDesc = (item, index) => {
     const color = colorsList.find((colors) => colors.id === item.color)?.name;
     const shape = shapesList.find((shapes) => shapes.id === item.shape)?.name;
     const size = sizesList.find((size) => size.id === item.size)?.name;
-    return `The color is${color} , the size is ${size} and the shape is ${shape}`;
-    console.log(color);
+    return `The color is ${color} , the size is ${size} and the shape is ${shape}`;
   };
+
   return (
     <div>
       <PlanetForm
         shapesList={shapesList}
         colorsList={colorsList}
         sizesList={sizesList}
+        text={text}
         list={list}
+        selectedColor={selectedColor}
+        selectedShape={selectedSize}
+        selectedSize={selectedSize}
         listDesc={listDesc}
         handleSubmit={handleSubmit}
         handleChange={handleChange}

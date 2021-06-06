@@ -24,5 +24,5 @@ const planetSlice = createSlice({
     },
   },
 });
-export const { increment } = planetSlice.actions;
+
 export default planetSlice.reducer;

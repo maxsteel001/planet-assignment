@@ -79,3 +79,10 @@ p {
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
+.listHeading {
+  font-size: 22px;
+}
+.listDesc {
+  font-size: 16px;
+  padding-top: 5px;
+}

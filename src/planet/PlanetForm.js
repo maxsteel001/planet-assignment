@@ -6,6 +6,7 @@ function PlanetForm({
   handleCheck,
   handleChange,
   list,
+  text,
   colorsList,
   shapesList,
   sizesList,
@@ -16,7 +17,7 @@ function PlanetForm({
     <div className="container">
       <div className="pb-30">
         <form onSubmit={handleSubmit} className="input-container">
-          <input className="width-90" onChange={handleChange} />
+          <input className="width-90" onChange={handleChange} value={text} />
           <button
             type="submit"
             className="width-10 button-primary"
@@ -48,8 +49,8 @@ function PlanetForm({
         <div className="list">
           {list?.planet?.planets.map((item, index) => (
             <div key={`name-${index}`} className="card">
-              <p>{item.name}</p>
-              <p>{listDesc(item, index)}</p>
+              <p className="listHeading">{item.name}</p>
+              <p className="listDesc">{listDesc(item, index)}</p>
             </div>
           ))}
         </div>
