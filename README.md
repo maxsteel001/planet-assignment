@@ -5,11 +5,12 @@ The list can be controlled by search filters.
 I have made the project using React Hooks.
 The code is fully responsive.
 I have tried to implement all the requirements.
-I have deployed this proect using Firebase.Below are the steps for the deploymnet process
+Input Text and list data also persisted
+I have deployed this project using Firebase.Below are the steps for the deployment process
 Firstly we go on firebase console and create a new project.
 Then we reigster the app with firebase hosting available.
 install firebase CLI
 setup config data , then on terminal firebase init and set public directory as build
 then npm run build and finally firebase deploy.
-Text and list data also persisted
+
 url : https://planet-assignment-dad2c.web.app;
