@@ -9,15 +9,9 @@ function PlanetContainer() {
   const [shapesList, updateShapes] = useState([]);
   const [colorsList, updateColors] = useState([]);
   const [sizesList, updateSizes] = useState([]);
-  const [selectedShape, updateSelectedShape] = useState(
-    localStorage.getItem("selectedShapeLocal") || []
-  );
-  const [selectedSize, updateSelectedSize] = useState(
-    localStorage.getItem("selectedSizeLocal") || []
-  );
-  const [selectedColor, updateSelectedColor] = useState(
-    JSON.parse(localStorage.getItem("selectedColorLocal")) || []
-  );
+  const [selectedShape, updateSelectedShape] = useState([]);
+  const [selectedSize, updateSelectedSize] = useState([]);
+  const [selectedColor, updateSelectedColor] = useState([]);
 
   const [text, updateText] = useState(localStorage.getItem("textLocal") || "");
   const dispatch = useDispatch();
@@ -44,7 +38,7 @@ function PlanetContainer() {
 
   useEffect(() => {
     localStorage.setItem("textLocal", text);
-    localStorage.setItem("selectedColorLocal", JSON.stringify(selectedColor));
+    localStorage.setItem("selectedColorLocal", selectedColor);
     localStorage.setItem("selectedShapeLocal", selectedShape);
     localStorage.setItem("selectedSizeLocal", selectedSize);
   }, [text, selectedSize, selectedShape, selectedColor]);
@@ -55,6 +49,8 @@ function PlanetContainer() {
       dispatch(getPlanets({ text, colorString, sizeString, shapeString }));
     }
   };
+  const persistedData = JSON.parse(localStorage.getItem("persistantState"));
+  //console.log(selectedColor, selectedShape, selectedSize);
   const handleCheck = (event, heading, id) => {
     const { checked } = event.target;
     switch (heading) {
@@ -116,7 +112,7 @@ function PlanetContainer() {
         colorsList={colorsList}
         sizesList={sizesList}
         text={text}
-        list={list}
+        list={persistedData}
         selectedColor={selectedColor}
         selectedShape={selectedSize}
         selectedSize={selectedSize}
