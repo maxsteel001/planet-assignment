@@ -7,11 +7,13 @@ function PlanetForm({
   handleChange,
   list,
   text,
+  selectedColor,
   colorsList,
   shapesList,
   sizesList,
   handleSubmit,
   listDesc,
+  allList,
 }) {
   return (
     <div className="container">
@@ -30,17 +32,21 @@ function PlanetForm({
       <div className="flex-row">
         <div className="filter">
           <Filter
+            selectedColor={selectedColor}
+            allList={allList}
             noTopPadding
             heading="Colors"
             filterList={colorsList}
             handleCheck={handleCheck}
           />
           <Filter
+            allList={allList}
             heading="Shapes"
             filterList={shapesList}
             handleCheck={handleCheck}
           />
           <Filter
+            allList={allList}
             heading="Sizes"
             filterList={sizesList}
             handleCheck={handleCheck}

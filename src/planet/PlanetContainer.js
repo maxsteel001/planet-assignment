@@ -31,9 +31,7 @@ function PlanetContainer() {
     axios.get(`${baseUrl}/sizes`).then((res) => updateSizes(res.data));
   }, []);
   useEffect(() => {
-    //if (selectedSize.length || selectedShape.length || selectedColor.length) {
     dispatch(getPlanets({ text, colorString, sizeString, shapeString }));
-    //  }
   }, [selectedColor, selectedShape, selectedSize]);
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function PlanetContainer() {
     }
   };
   const persistedData = JSON.parse(localStorage.getItem("persistantState"));
-  //console.log(selectedColor, selectedShape, selectedSize);
+
   const handleCheck = (event, heading, id) => {
     const { checked } = event.target;
     switch (heading) {
@@ -104,10 +102,12 @@ function PlanetContainer() {
     const size = sizesList.find((size) => size.id === item.size)?.name;
     return `The color is ${color} , the size is ${size} and the shape is ${shape}`;
   };
+  const allList = shapesList.concat(colorsList, sizesList);
 
   return (
     <div>
       <PlanetForm
+        allList={allList}
         shapesList={shapesList}
         colorsList={colorsList}
         sizesList={sizesList}
