@@ -15,7 +15,7 @@ function PlanetContainer() {
 
   const [text, updateText] = useState(localStorage.getItem("textLocal") || "");
   const dispatch = useDispatch();
-
+  const list = useSelector((state) => state);
   const colorString =
     selectedColor.join(",") !== "" ? `&color=${selectedColor.join(",")}` : "";
   const sizeString = selectedSize.join(",")
@@ -31,7 +31,9 @@ function PlanetContainer() {
     axios.get(`${baseUrl}/sizes`).then((res) => updateSizes(res.data));
   }, []);
   useEffect(() => {
+    //if (selectedSize.length || selectedShape.length || selectedColor.length) {
     dispatch(getPlanets({ text, colorString, sizeString, shapeString }));
+    //  }
   }, [selectedColor, selectedShape, selectedSize]);
 
   useEffect(() => {
@@ -43,9 +45,7 @@ function PlanetContainer() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (text === "") {
-      alert("Text field can not be empty");
-    } else {
+    if (text !== "") {
       dispatch(getPlanets({ text, colorString, sizeString, shapeString }));
     }
   };
