@@ -45,6 +45,24 @@ p {
   display: flex;
   flex-flow: row;
 }
+.list {
+  border-left: 1px solid grey;
+  width: 80%;
+  padding-left: 30px;
+  text-align: left;
+}
+@media screen and (max-width: 650px) {
+  .flex-row {
+    flex-flow: column;
+  }
+  .list {
+    border-left: none;
+    border-top: 1px solid grey;
+    padding-left: 0px;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+}
 .input-container {
   display: flex;
   flex-flow: row;
@@ -61,12 +79,7 @@ p {
   font-size: 16px;
   text-align: left;
 }
-.list {
-  border-left: 1px solid grey;
-  width: 80%;
-  padding-left: 30px;
-  text-align: left;
-}
+
 .filter {
   width: 20%;
 }
