@@ -9,9 +9,15 @@ function PlanetContainer() {
   const [shapesList, updateShapes] = useState([]);
   const [colorsList, updateColors] = useState([]);
   const [sizesList, updateSizes] = useState([]);
-  const [selectedShape, updateSelectedShape] = useState([]);
-  const [selectedSize, updateSelectedSize] = useState([]);
-  const [selectedColor, updateSelectedColor] = useState([]);
+  const [selectedShape, updateSelectedShape] = useState(
+    localStorage.getItem("selectedShapeLocal") || []
+  );
+  const [selectedSize, updateSelectedSize] = useState(
+    localStorage.getItem("selectedSizeLocal") || []
+  );
+  const [selectedColor, updateSelectedColor] = useState(
+    JSON.parse(localStorage.getItem("selectedColorLocal")) || []
+  );
 
   const [text, updateText] = useState(localStorage.getItem("textLocal") || "");
   const dispatch = useDispatch();
@@ -24,7 +30,7 @@ function PlanetContainer() {
   const shapeString = selectedShape.join(",")
     ? `&shape=${selectedShape.join(",")}`
     : "";
-  console.log(localStorage.getItem("texLocal"), "divi");
+
   useEffect(() => {
     axios.get(`${baseUrl}/shapes`).then((res) => updateShapes(res.data));
     axios.get(`${baseUrl}/colors`).then((res) => updateColors(res.data));
@@ -38,7 +44,10 @@ function PlanetContainer() {
 
   useEffect(() => {
     localStorage.setItem("textLocal", text);
-  }, [text]);
+    localStorage.setItem("selectedColorLocal", JSON.stringify(selectedColor));
+    localStorage.setItem("selectedShapeLocal", selectedShape);
+    localStorage.setItem("selectedSizeLocal", selectedSize);
+  }, [text, selectedSize, selectedShape, selectedColor]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
