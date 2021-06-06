@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./PlanetForm.css";
 import Filter from "./Filter";
 
@@ -10,6 +10,7 @@ function PlanetForm({
   shapesList,
   sizesList,
   handleSubmit,
+  listDesc,
 }) {
   return (
     <div className="container">
@@ -44,10 +45,14 @@ function PlanetForm({
             handleCheck={handleCheck}
           />
         </div>
-        <div className="list"></div>
-        {list?.planet?.planets.map((item) => (
-          <p>{item.name}</p>
-        ))}
+        <div className="list">
+          {list?.planet?.planets.map((item, index) => (
+            <div key={`name-${index}`} className="card">
+              <p>{item.name}</p>
+              <p>{listDesc(item, index)}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

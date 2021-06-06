@@ -12,6 +12,7 @@ function PlanetContainer() {
   const [selectedShape, updateSelectedShape] = useState([]);
   const [selectedSize, updateSelectedSize] = useState([]);
   const [selectedColor, updateSelectedColor] = useState([]);
+
   const [text, updateText] = useState("");
   const dispatch = useDispatch();
   const list = useSelector((state) => state);
@@ -75,13 +76,20 @@ function PlanetContainer() {
         updateSelectedSize(arrSize);
 
         break;
+      default:
+        break;
     }
   };
   const handleChange = (event) => {
     updateText(event.target.value);
   };
-  const listDescription = () => {};
-  console.log(list);
+  const listDesc = (item, index) => {
+    const color = colorsList.find((colors) => colors.id === item.color)?.name;
+    const shape = shapesList.find((shapes) => shapes.id === item.shape)?.name;
+    const size = sizesList.find((size) => size.id === item.size)?.name;
+    return `The color is${color} , the size is ${size} and the shape is ${shape}`;
+    console.log(color);
+  };
   return (
     <div>
       <PlanetForm
@@ -89,6 +97,7 @@ function PlanetContainer() {
         colorsList={colorsList}
         sizesList={sizesList}
         list={list}
+        listDesc={listDesc}
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         handleCheck={handleCheck}
